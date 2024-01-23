@@ -1,0 +1,1275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ecommerce2024Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CARRITO">
+          <Key>
+            <PropertyRef Name="IdCarrito" />
+          </Key>
+          <Property Name="IdCarrito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCliente" Type="int" />
+          <Property Name="IdProducto" Type="int" />
+          <Property Name="Cantidad" Type="int" />
+        </EntityType>
+        <EntityType Name="CATEGORIA">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="Activo" Type="bit" />
+          <Property Name="FechaRegistro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="100" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="100" />
+          <Property Name="Correo" Type="varchar" MaxLength="100" />
+          <Property Name="Clave" Type="varchar" MaxLength="150" />
+          <Property Name="Restablecer" Type="bit" />
+          <Property Name="FechaRegistro" Type="datetime" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'ecommerce2024.dbo.DEPARTAMENTO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="DEPARTAMENTO">
+          <Key>
+            <PropertyRef Name="IdDepartamento" />
+            <PropertyRef Name="Descripcion" />
+          </Key>
+          <Property Name="IdDepartamento" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DETALLE_VENTA">
+          <Key>
+            <PropertyRef Name="IdDetalleVenta" />
+          </Key>
+          <Property Name="IdDetalleVenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdVenta" Type="int" />
+          <Property Name="IdProducto" Type="int" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="Total" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'ecommerce2024.dbo.DISTRITO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="DISTRITO">
+          <Key>
+            <PropertyRef Name="IdDistrito" />
+            <PropertyRef Name="Descripcion" />
+            <PropertyRef Name="IdProvincia" />
+            <PropertyRef Name="IdDepartamento" />
+          </Key>
+          <Property Name="IdDistrito" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="IdProvincia" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="IdDepartamento" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MARCA">
+          <Key>
+            <PropertyRef Name="IdMarca" />
+          </Key>
+          <Property Name="IdMarca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="Activo" Type="bit" />
+          <Property Name="FechaRegistro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="500" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+          <Property Name="IdMarca" Type="int" />
+          <Property Name="IdCategotia" Type="int" />
+          <Property Name="Precio" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Stock" Type="int" />
+          <Property Name="RutaImagen" Type="varchar" MaxLength="100" />
+          <Property Name="NombreImagen" Type="varchar" MaxLength="100" />
+          <Property Name="Activo" Type="bit" />
+          <Property Name="FechaRegistro" Type="datetime" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'ecommerce2024.dbo.PROVINCIA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="PROVINCIA">
+          <Key>
+            <PropertyRef Name="IdProvincia" />
+            <PropertyRef Name="Descripcion" />
+            <PropertyRef Name="IdDepartamento" />
+          </Key>
+          <Property Name="IdProvincia" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="IdDepartamento" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="100" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="100" />
+          <Property Name="Correo" Type="varchar" MaxLength="100" />
+          <Property Name="Clave" Type="varchar" MaxLength="150" />
+          <Property Name="Reestablecer" Type="bit" />
+          <Property Name="Activo" Type="bit" />
+          <Property Name="idRol" Type="int" />
+          <Property Name="FechaRegistro" Type="datetime" />
+          <Property Name="numero" Type="varchar" MaxLength="9" />
+        </EntityType>
+        <EntityType Name="VENTA">
+          <Key>
+            <PropertyRef Name="IdVenta" />
+          </Key>
+          <Property Name="IdVenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCliente" Type="int" />
+          <Property Name="TotalProducto" Type="int" />
+          <Property Name="MontoTotal" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Contacto" Type="varchar" MaxLength="50" />
+          <Property Name="IdDistrito" Type="varchar" MaxLength="10" />
+          <Property Name="Telefono" Type="varchar" MaxLength="50" />
+          <Property Name="Direccion" Type="varchar" MaxLength="500" />
+          <Property Name="IdTransaccion" Type="varchar" MaxLength="50" />
+          <Property Name="FechaVenta" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__CARRITO__IdClien__4BAC3F29">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
+          <End Role="CARRITO" Type="Self.CARRITO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="CARRITO">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CARRITO__IdProdu__4CA06362">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+          <End Role="CARRITO" Type="Self.CARRITO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="CARRITO">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_V__IdPro__5441852A">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+          <End Role="DETALLE_VENTA" Type="Self.DETALLE_VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="DETALLE_VENTA">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_V__IdVen__534D60F1">
+          <End Role="VENTA" Type="Self.VENTA" Multiplicity="0..1" />
+          <End Role="DETALLE_VENTA" Type="Self.DETALLE_VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VENTA">
+              <PropertyRef Name="IdVenta" />
+            </Principal>
+            <Dependent Role="DETALLE_VENTA">
+              <PropertyRef Name="IdVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Producto__IdCate__4222D4EF">
+          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdCategotia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Producto__IdMarc__412EB0B6">
+          <End Role="MARCA" Type="Self.MARCA" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MARCA">
+              <PropertyRef Name="IdMarca" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USUARIO__idRol__628FA481">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="USUARIO">
+              <PropertyRef Name="idRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VENTA__IdCliente__4F7CD00D">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
+          <End Role="VENTA" Type="Self.VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="VENTA">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_ListarComprar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="RutaImagen" Type="varchar" MaxLength="100" />
+                <Property Name="NombreImagen" Type="varchar" MaxLength="100" />
+                <Property Name="Nombre" Type="varchar" MaxLength="500" />
+                <Property Name="Precio" Type="decimal" Precision="10" Scale="2" />
+                <Property Name="Cantidad" Type="int" />
+                <Property Name="Total" Type="decimal" Precision="10" Scale="2" />
+                <Property Name="IdTransaccion" Type="varchar" MaxLength="50" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="fn_ObtenerCarritoCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="IdProducto" Type="int" Nullable="false" />
+                <Property Name="DesMarca" Type="varchar" MaxLength="100" />
+                <Property Name="Nombre" Type="varchar" MaxLength="500" />
+                <Property Name="Precio" Type="decimal" Precision="10" Scale="2" />
+                <Property Name="Cantidad" Type="int" />
+                <Property Name="RutaImagen" Type="varchar" MaxLength="100" />
+                <Property Name="NombreImagen" Type="varchar" MaxLength="100" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="ListarMarcaProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCategoria" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ListarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_CantidadCarrito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_EditarCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCategoria" Type="int" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Activo" Type="bit" Mode="In" />
+          <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
+          <Parameter Name="Resultado" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="sp_EditarMarca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdMarca" Type="int" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Activo" Type="bit" Mode="In" />
+          <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
+          <Parameter Name="Resultado" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="sp_EditarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+          <Parameter Name="Nombres" Type="varchar" Mode="In" />
+          <Parameter Name="Apellidos" Type="varchar" Mode="In" />
+          <Parameter Name="Correo" Type="varchar" Mode="In" />
+          <Parameter Name="Activo" Type="bit" Mode="In" />
+          <Parameter Name="IdRol" Type="int" Mode="In" />
+          <Parameter Name="Numero" Type="varchar" Mode="In" />
+          <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
+          <Parameter Name="Resultado" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="sp_EliminarCarrito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+          <Parameter Name="Resultado" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="sp_EliminarCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCategoria" Type="int" Mode="In" />
+          <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
+          <Parameter Name="Resultado" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="sp_EliminarMarca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdMarca" Type="int" Mode="In" />
+          <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
+          <Parameter Name="Resultado" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="sp_EliminarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+          <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
+          <Parameter Name="Resultado" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="sp_ExisteCarrito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+          <Parameter Name="Resultado" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="sp_InsertarVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="TotalProducto" Type="int" Mode="In" />
+          <Parameter Name="MontoTotal" Type="decimal" Mode="In" />
+          <Parameter Name="Contacto" Type="varchar" Mode="In" />
+          <Parameter Name="IdDistrito" Type="varchar" Mode="In" />
+          <Parameter Name="Telefono" Type="varchar" Mode="In" />
+          <Parameter Name="Direccion" Type="varchar" Mode="In" />
+          <Parameter Name="IdTransaccion" Type="varchar" Mode="In" />
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+          <Parameter Name="Cantidad" Type="int" Mode="In" />
+          <Parameter Name="Total" Type="decimal" Mode="In" />
+          <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
+          <Parameter Name="Resultado" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sp_OperacionCarrito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+          <Parameter Name="Sumar" Type="bit" Mode="In" />
+          <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
+          <Parameter Name="Resultado" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="sp_RegistarCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombres" Type="varchar" Mode="In" />
+          <Parameter Name="Apellidos" Type="varchar" Mode="In" />
+          <Parameter Name="Coreo" Type="varchar" Mode="In" />
+          <Parameter Name="Clave" Type="varchar" Mode="In" />
+          <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
+          <Parameter Name="Resultado" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sp_RegistrarCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Activo" Type="bit" Mode="In" />
+          <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
+          <Parameter Name="Resultado" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sp_RegistrarMarca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Activo" Type="bit" Mode="In" />
+          <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
+          <Parameter Name="Resultado" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sp_RegistrarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Descripciopn" Type="varchar" Mode="In" />
+          <Parameter Name="IdMarca" Type="int" Mode="In" />
+          <Parameter Name="IdCategoria" Type="int" Mode="In" />
+          <Parameter Name="Precio" Type="decimal" Mode="In" />
+          <Parameter Name="Stock" Type="int" Mode="In" />
+          <Parameter Name="Activo" Type="bit" Mode="In" />
+          <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
+          <Parameter Name="Resultado" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sp_RegistrarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombres" Type="varchar" Mode="In" />
+          <Parameter Name="Apellidos" Type="varchar" Mode="In" />
+          <Parameter Name="Correo" Type="varchar" Mode="In" />
+          <Parameter Name="Clave" Type="varchar" Mode="In" />
+          <Parameter Name="Activo" Type="bit" Mode="In" />
+          <Parameter Name="IdRol" Type="int" Mode="In" />
+          <Parameter Name="Numero" Type="varchar" Mode="In" />
+          <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
+          <Parameter Name="Resultado" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sp_ReporteDashboard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ReporteVentas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fechainicio" Type="varchar" Mode="In" />
+          <Parameter Name="fechafin" Type="varchar" Mode="In" />
+          <Parameter Name="idTransaccion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_EditarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="IdMarca" Type="int" Mode="In" />
+          <Parameter Name="IdCategoria" Type="int" Mode="In" />
+          <Parameter Name="Precio" Type="decimal" Mode="In" />
+          <Parameter Name="Stock" Type="int" Mode="In" />
+          <Parameter Name="Activo" Type="bit" Mode="In" />
+          <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
+          <Parameter Name="Resultado" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_InsertarVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="TotalProducto" Type="int" Mode="In" />
+          <Parameter Name="MontoTotal" Type="decimal" Mode="In" />
+          <Parameter Name="Contacto" Type="varchar" Mode="In" />
+          <Parameter Name="IdDistrito" Type="varchar" Mode="In" />
+          <Parameter Name="Telefono" Type="varchar" Mode="In" />
+          <Parameter Name="Direccion" Type="varchar" Mode="In" />
+          <Parameter Name="IdTransaccion" Type="varchar" Mode="In" />
+          <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
+          <Parameter Name="Resultado" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_RegistrarVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="TotalProducto" Type="int" Mode="In" />
+          <Parameter Name="MontoTotal" Type="decimal" Mode="In" />
+          <Parameter Name="Contacto" Type="varchar" Mode="In" />
+          <Parameter Name="IdDistrito" Type="varchar" Mode="In" />
+          <Parameter Name="Telefono" Type="varchar" Mode="In" />
+          <Parameter Name="Direccion" Type="varchar" Mode="In" />
+          <Parameter Name="IdTransaccion" Type="varchar" Mode="In" />
+          <Parameter Name="Resultado" Type="bit" Mode="InOut" />
+          <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="ecommerce2024ModelStoreContainer">
+          <EntitySet Name="CARRITO" EntityType="Self.CARRITO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETALLE_VENTA" EntityType="Self.DETALLE_VENTA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MARCA" EntityType="Self.MARCA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VENTA" EntityType="Self.VENTA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DEPARTAMENTO" EntityType="Self.DEPARTAMENTO" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DEPARTAMENTO].[IdDepartamento] AS [IdDepartamento], 
+    [DEPARTAMENTO].[Descripcion] AS [Descripcion]
+    FROM [dbo].[DEPARTAMENTO] AS [DEPARTAMENTO]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="DISTRITO" EntityType="Self.DISTRITO" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DISTRITO].[IdDistrito] AS [IdDistrito], 
+    [DISTRITO].[Descripcion] AS [Descripcion], 
+    [DISTRITO].[IdProvincia] AS [IdProvincia], 
+    [DISTRITO].[IdDepartamento] AS [IdDepartamento]
+    FROM [dbo].[DISTRITO] AS [DISTRITO]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PROVINCIA" EntityType="Self.PROVINCIA" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PROVINCIA].[IdProvincia] AS [IdProvincia], 
+    [PROVINCIA].[Descripcion] AS [Descripcion], 
+    [PROVINCIA].[IdDepartamento] AS [IdDepartamento]
+    FROM [dbo].[PROVINCIA] AS [PROVINCIA]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__CARRITO__IdClien__4BAC3F29" Association="Self.FK__CARRITO__IdClien__4BAC3F29">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="CARRITO" EntitySet="CARRITO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CARRITO__IdProdu__4CA06362" Association="Self.FK__CARRITO__IdProdu__4CA06362">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="CARRITO" EntitySet="CARRITO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_V__IdPro__5441852A" Association="Self.FK__DETALLE_V__IdPro__5441852A">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="DETALLE_VENTA" EntitySet="DETALLE_VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_V__IdVen__534D60F1" Association="Self.FK__DETALLE_V__IdVen__534D60F1">
+            <End Role="VENTA" EntitySet="VENTA" />
+            <End Role="DETALLE_VENTA" EntitySet="DETALLE_VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Producto__IdCate__4222D4EF" Association="Self.FK__Producto__IdCate__4222D4EF">
+            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Producto__IdMarc__412EB0B6" Association="Self.FK__Producto__IdMarc__412EB0B6">
+            <End Role="MARCA" EntitySet="MARCA" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USUARIO__idRol__628FA481" Association="Self.FK__USUARIO__idRol__628FA481">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="USUARIO" EntitySet="USUARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__VENTA__IdCliente__4F7CD00D" Association="Self.FK__VENTA__IdCliente__4F7CD00D">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="VENTA" EntitySet="VENTA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ecommerce2024Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="fn_ListarComprar_Result">
+          <Property Name="RutaImagen" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NombreImagen" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="Total" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="IdTransaccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </ComplexType>
+        <ComplexType Name="fn_ObtenerCarritoCliente_Result">
+          <Property Name="IdProducto" Type="Int32" Nullable="false" />
+          <Property Name="DesMarca" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="RutaImagen" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NombreImagen" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </ComplexType>
+        <EntityType Name="CARRITO">
+          <Key>
+            <PropertyRef Name="IdCarrito" />
+          </Key>
+          <Property Name="IdCarrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCliente" Type="Int32" />
+          <Property Name="IdProducto" Type="Int32" />
+          <Property Name="Cantidad" Type="Int32" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.FK__CARRITO__IdClien__4BAC3F29" FromRole="CARRITO" ToRole="CLIENTE" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__CARRITO__IdProdu__4CA06362" FromRole="CARRITO" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="CATEGORIA">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__Producto__IdCate__4222D4EF" FromRole="CATEGORIA" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombres" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Clave" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Restablecer" Type="Boolean" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CARRITO" Relationship="Self.FK__CARRITO__IdClien__4BAC3F29" FromRole="CLIENTE" ToRole="CARRITO" />
+          <NavigationProperty Name="VENTA" Relationship="Self.FK__VENTA__IdCliente__4F7CD00D" FromRole="CLIENTE" ToRole="VENTA" />
+        </EntityType>
+        <EntityType Name="DETALLE_VENTA">
+          <Key>
+            <PropertyRef Name="IdDetalleVenta" />
+          </Key>
+          <Property Name="IdDetalleVenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdVenta" Type="Int32" />
+          <Property Name="IdProducto" Type="Int32" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="Total" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__DETALLE_V__IdPro__5441852A" FromRole="DETALLE_VENTA" ToRole="Producto" />
+          <NavigationProperty Name="VENTA" Relationship="Self.FK__DETALLE_V__IdVen__534D60F1" FromRole="DETALLE_VENTA" ToRole="VENTA" />
+        </EntityType>
+        <EntityType Name="MARCA">
+          <Key>
+            <PropertyRef Name="IdMarca" />
+          </Key>
+          <Property Name="IdMarca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__Producto__IdMarc__412EB0B6" FromRole="MARCA" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IdMarca" Type="Int32" />
+          <Property Name="IdCategotia" Type="Int32" />
+          <Property Name="Precio" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Stock" Type="Int32" />
+          <Property Name="RutaImagen" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NombreImagen" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CARRITO" Relationship="Self.FK__CARRITO__IdProdu__4CA06362" FromRole="Producto" ToRole="CARRITO" />
+          <NavigationProperty Name="CATEGORIA" Relationship="Self.FK__Producto__IdCate__4222D4EF" FromRole="Producto" ToRole="CATEGORIA" />
+          <NavigationProperty Name="DETALLE_VENTA" Relationship="Self.FK__DETALLE_V__IdPro__5441852A" FromRole="Producto" ToRole="DETALLE_VENTA" />
+          <NavigationProperty Name="MARCA" Relationship="Self.FK__Producto__IdMarc__412EB0B6" FromRole="Producto" ToRole="MARCA" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK__USUARIO__idRol__628FA481" FromRole="Rol" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombres" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Clave" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Reestablecer" Type="Boolean" />
+          <Property Name="Activo" Type="Boolean" />
+          <Property Name="idRol" Type="Int32" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <Property Name="numero" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Rol" Relationship="Self.FK__USUARIO__idRol__628FA481" FromRole="USUARIO" ToRole="Rol" />
+        </EntityType>
+        <EntityType Name="VENTA">
+          <Key>
+            <PropertyRef Name="IdVenta" />
+          </Key>
+          <Property Name="IdVenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCliente" Type="Int32" />
+          <Property Name="TotalProducto" Type="Int32" />
+          <Property Name="MontoTotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Contacto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdDistrito" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IdTransaccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaVenta" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.FK__VENTA__IdCliente__4F7CD00D" FromRole="VENTA" ToRole="CLIENTE" />
+          <NavigationProperty Name="DETALLE_VENTA" Relationship="Self.FK__DETALLE_V__IdVen__534D60F1" FromRole="VENTA" ToRole="DETALLE_VENTA" />
+        </EntityType>
+        <EntityType Name="DEPARTAMENTO">
+          <Key>
+            <PropertyRef Name="IdDepartamento" />
+            <PropertyRef Name="Descripcion" />
+          </Key>
+          <Property Name="IdDepartamento" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DISTRITO">
+          <Key>
+            <PropertyRef Name="IdDistrito" />
+            <PropertyRef Name="Descripcion" />
+            <PropertyRef Name="IdProvincia" />
+            <PropertyRef Name="IdDepartamento" />
+          </Key>
+          <Property Name="IdDistrito" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdProvincia" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdDepartamento" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PROVINCIA">
+          <Key>
+            <PropertyRef Name="IdProvincia" />
+            <PropertyRef Name="Descripcion" />
+            <PropertyRef Name="IdDepartamento" />
+          </Key>
+          <Property Name="IdProvincia" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdDepartamento" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__CARRITO__IdClien__4BAC3F29">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
+          <End Role="CARRITO" Type="Self.CARRITO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="CARRITO">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CARRITO__IdProdu__4CA06362">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+          <End Role="CARRITO" Type="Self.CARRITO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="CARRITO">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Producto__IdCate__4222D4EF">
+          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdCategotia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VENTA__IdCliente__4F7CD00D">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
+          <End Role="VENTA" Type="Self.VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="VENTA">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_V__IdPro__5441852A">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+          <End Role="DETALLE_VENTA" Type="Self.DETALLE_VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="DETALLE_VENTA">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_V__IdVen__534D60F1">
+          <End Role="VENTA" Type="Self.VENTA" Multiplicity="0..1" />
+          <End Role="DETALLE_VENTA" Type="Self.DETALLE_VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VENTA">
+              <PropertyRef Name="IdVenta" />
+            </Principal>
+            <Dependent Role="DETALLE_VENTA">
+              <PropertyRef Name="IdVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Producto__IdMarc__412EB0B6">
+          <End Role="MARCA" Type="Self.MARCA" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MARCA">
+              <PropertyRef Name="IdMarca" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USUARIO__idRol__628FA481">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="USUARIO">
+              <PropertyRef Name="idRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ecommerce2024Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CARRITO" EntityType="Self.CARRITO" />
+          <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" />
+          <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" />
+          <EntitySet Name="DETALLE_VENTA" EntityType="Self.DETALLE_VENTA" />
+          <EntitySet Name="MARCA" EntityType="Self.MARCA" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
+          <EntitySet Name="VENTA" EntityType="Self.VENTA" />
+          <EntitySet Name="DEPARTAMENTO" EntityType="Self.DEPARTAMENTO" />
+          <EntitySet Name="DISTRITO" EntityType="Self.DISTRITO" />
+          <EntitySet Name="PROVINCIA" EntityType="Self.PROVINCIA" />
+          <AssociationSet Name="FK__CARRITO__IdClien__4BAC3F29" Association="Self.FK__CARRITO__IdClien__4BAC3F29">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="CARRITO" EntitySet="CARRITO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CARRITO__IdProdu__4CA06362" Association="Self.FK__CARRITO__IdProdu__4CA06362">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="CARRITO" EntitySet="CARRITO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Producto__IdCate__4222D4EF" Association="Self.FK__Producto__IdCate__4222D4EF">
+            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__VENTA__IdCliente__4F7CD00D" Association="Self.FK__VENTA__IdCliente__4F7CD00D">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="VENTA" EntitySet="VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_V__IdPro__5441852A" Association="Self.FK__DETALLE_V__IdPro__5441852A">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="DETALLE_VENTA" EntitySet="DETALLE_VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_V__IdVen__534D60F1" Association="Self.FK__DETALLE_V__IdVen__534D60F1">
+            <End Role="VENTA" EntitySet="VENTA" />
+            <End Role="DETALLE_VENTA" EntitySet="DETALLE_VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Producto__IdMarc__412EB0B6" Association="Self.FK__Producto__IdMarc__412EB0B6">
+            <End Role="MARCA" EntitySet="MARCA" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USUARIO__idRol__628FA481" Association="Self.FK__USUARIO__idRol__628FA481">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="USUARIO" EntitySet="USUARIO" />
+          </AssociationSet>
+          <FunctionImport Name="fn_ListarComprar" IsComposable="true" ReturnType="Collection(ecommerce2024Model.fn_ListarComprar_Result)">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="fn_ObtenerCarritoCliente" IsComposable="true" ReturnType="Collection(ecommerce2024Model.fn_ObtenerCarritoCliente_Result)">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ListarMarcaProducto" ReturnType="Collection(ecommerce2024Model.ListarMarcaProducto_Result)">
+            <Parameter Name="IdCategoria" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ListarProducto" ReturnType="Collection(ecommerce2024Model.ListarProducto_Result)" />
+          <FunctionImport Name="sp_CantidadCarrito" ReturnType="Collection(Int32)">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EditarCategoria">
+            <Parameter Name="IdCategoria" Mode="In" Type="Int32" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Activo" Mode="In" Type="Boolean" />
+            <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EditarMarca">
+            <Parameter Name="IdMarca" Mode="In" Type="Int32" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Activo" Mode="In" Type="Boolean" />
+            <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EditarUsuario">
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="Nombres" Mode="In" Type="String" />
+            <Parameter Name="Apellidos" Mode="In" Type="String" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+            <Parameter Name="Activo" Mode="In" Type="Boolean" />
+            <Parameter Name="IdRol" Mode="In" Type="Int32" />
+            <Parameter Name="Numero" Mode="In" Type="String" />
+            <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EliminarCarrito">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EliminarCategoria">
+            <Parameter Name="IdCategoria" Mode="In" Type="Int32" />
+            <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EliminarMarca">
+            <Parameter Name="IdMarca" Mode="In" Type="Int32" />
+            <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EliminarProducto">
+            <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+            <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ExisteCarrito">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsertarVenta">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="TotalProducto" Mode="In" Type="Int32" />
+            <Parameter Name="MontoTotal" Mode="In" Type="Decimal" />
+            <Parameter Name="Contacto" Mode="In" Type="String" />
+            <Parameter Name="IdDistrito" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
+            <Parameter Name="Direccion" Mode="In" Type="String" />
+            <Parameter Name="IdTransaccion" Mode="In" Type="String" />
+            <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+            <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+            <Parameter Name="Total" Mode="In" Type="Decimal" />
+            <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_OperacionCarrito">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+            <Parameter Name="Sumar" Mode="In" Type="Boolean" />
+            <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_RegistarCliente">
+            <Parameter Name="Nombres" Mode="In" Type="String" />
+            <Parameter Name="Apellidos" Mode="In" Type="String" />
+            <Parameter Name="Coreo" Mode="In" Type="String" />
+            <Parameter Name="Clave" Mode="In" Type="String" />
+            <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_RegistrarCategoria">
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Activo" Mode="In" Type="Boolean" />
+            <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_RegistrarMarca">
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Activo" Mode="In" Type="Boolean" />
+            <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_RegistrarProducto">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Descripciopn" Mode="In" Type="String" />
+            <Parameter Name="IdMarca" Mode="In" Type="Int32" />
+            <Parameter Name="IdCategoria" Mode="In" Type="Int32" />
+            <Parameter Name="Precio" Mode="In" Type="Decimal" />
+            <Parameter Name="Stock" Mode="In" Type="Int32" />
+            <Parameter Name="Activo" Mode="In" Type="Boolean" />
+            <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_RegistrarUsuario">
+            <Parameter Name="Nombres" Mode="In" Type="String" />
+            <Parameter Name="Apellidos" Mode="In" Type="String" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+            <Parameter Name="Clave" Mode="In" Type="String" />
+            <Parameter Name="Activo" Mode="In" Type="Boolean" />
+            <Parameter Name="IdRol" Mode="In" Type="Int32" />
+            <Parameter Name="Numero" Mode="In" Type="String" />
+            <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ReporteDashboard" ReturnType="Collection(ecommerce2024Model.sp_ReporteDashboard_Result)" />
+          <FunctionImport Name="sp_ReporteVentas" ReturnType="Collection(ecommerce2024Model.sp_ReporteVentas_Result)">
+            <Parameter Name="fechainicio" Mode="In" Type="String" />
+            <Parameter Name="fechafin" Mode="In" Type="String" />
+            <Parameter Name="idTransaccion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_EditarProducto">
+            <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="IdMarca" Mode="In" Type="Int32" />
+            <Parameter Name="IdCategoria" Mode="In" Type="Int32" />
+            <Parameter Name="Precio" Mode="In" Type="Decimal" />
+            <Parameter Name="Stock" Mode="In" Type="Int32" />
+            <Parameter Name="Activo" Mode="In" Type="Boolean" />
+            <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_InsertarVenta">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="TotalProducto" Mode="In" Type="Int32" />
+            <Parameter Name="MontoTotal" Mode="In" Type="Decimal" />
+            <Parameter Name="Contacto" Mode="In" Type="String" />
+            <Parameter Name="IdDistrito" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
+            <Parameter Name="Direccion" Mode="In" Type="String" />
+            <Parameter Name="IdTransaccion" Mode="In" Type="String" />
+            <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_RegistrarVenta">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="TotalProducto" Mode="In" Type="Int32" />
+            <Parameter Name="MontoTotal" Mode="In" Type="Decimal" />
+            <Parameter Name="Contacto" Mode="In" Type="String" />
+            <Parameter Name="IdDistrito" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
+            <Parameter Name="Direccion" Mode="In" Type="String" />
+            <Parameter Name="IdTransaccion" Mode="In" Type="String" />
+            <Parameter Name="Resultado" Mode="InOut" Type="Boolean" />
+            <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="ListarMarcaProducto_Result">
+          <Property Type="Int32" Name="IdMarca" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="ListarProducto_Result">
+          <Property Type="Int32" Name="IdProducto" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="IdMarca" Nullable="false" />
+          <Property Type="String" Name="DesMarca" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="IdCategoria" Nullable="false" />
+          <Property Type="String" Name="DesCategoria" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="Precio" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="Stock" Nullable="true" />
+          <Property Type="String" Name="RutaImagen" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="NombreImagen" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="Activo" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_ReporteDashboard_Result">
+          <Property Type="Int32" Name="TotalCliente" Nullable="true" />
+          <Property Type="Int32" Name="TotalVenta" Nullable="true" />
+          <Property Type="Int32" Name="TotalProducto" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_ReporteVentas_Result">
+          <Property Type="String" Name="FechaVenta" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Cliente" Nullable="false" MaxLength="201" />
+          <Property Type="String" Name="Producto" Nullable="true" MaxLength="500" />
+          <Property Type="Decimal" Name="Precio" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="Cantidad" Nullable="true" />
+          <Property Type="Decimal" Name="Total" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="String" Name="IdTransaccion" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ecommerce2024ModelStoreContainer" CdmEntityContainer="ecommerce2024Entities">
+          <EntitySetMapping Name="CARRITO">
+            <EntityTypeMapping TypeName="ecommerce2024Model.CARRITO">
+              <MappingFragment StoreEntitySet="CARRITO">
+                <ScalarProperty Name="IdCarrito" ColumnName="IdCarrito" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CATEGORIA">
+            <EntityTypeMapping TypeName="ecommerce2024Model.CATEGORIA">
+              <MappingFragment StoreEntitySet="CATEGORIA">
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLIENTE">
+            <EntityTypeMapping TypeName="ecommerce2024Model.CLIENTE">
+              <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="Restablecer" ColumnName="Restablecer" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETALLE_VENTA">
+            <EntityTypeMapping TypeName="ecommerce2024Model.DETALLE_VENTA">
+              <MappingFragment StoreEntitySet="DETALLE_VENTA">
+                <ScalarProperty Name="IdDetalleVenta" ColumnName="IdDetalleVenta" />
+                <ScalarProperty Name="IdVenta" ColumnName="IdVenta" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MARCA">
+            <EntityTypeMapping TypeName="ecommerce2024Model.MARCA">
+              <MappingFragment StoreEntitySet="MARCA">
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="ecommerce2024Model.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+                <ScalarProperty Name="IdCategotia" ColumnName="IdCategotia" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="RutaImagen" ColumnName="RutaImagen" />
+                <ScalarProperty Name="NombreImagen" ColumnName="NombreImagen" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="ecommerce2024Model.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIO">
+            <EntityTypeMapping TypeName="ecommerce2024Model.USUARIO">
+              <MappingFragment StoreEntitySet="USUARIO">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="Reestablecer" ColumnName="Reestablecer" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VENTA">
+            <EntityTypeMapping TypeName="ecommerce2024Model.VENTA">
+              <MappingFragment StoreEntitySet="VENTA">
+                <ScalarProperty Name="IdVenta" ColumnName="IdVenta" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="TotalProducto" ColumnName="TotalProducto" />
+                <ScalarProperty Name="MontoTotal" ColumnName="MontoTotal" />
+                <ScalarProperty Name="Contacto" ColumnName="Contacto" />
+                <ScalarProperty Name="IdDistrito" ColumnName="IdDistrito" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="IdTransaccion" ColumnName="IdTransaccion" />
+                <ScalarProperty Name="FechaVenta" ColumnName="FechaVenta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DEPARTAMENTO">
+            <EntityTypeMapping TypeName="ecommerce2024Model.DEPARTAMENTO">
+              <MappingFragment StoreEntitySet="DEPARTAMENTO">
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DISTRITO">
+            <EntityTypeMapping TypeName="ecommerce2024Model.DISTRITO">
+              <MappingFragment StoreEntitySet="DISTRITO">
+                <ScalarProperty Name="IdDistrito" ColumnName="IdDistrito" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROVINCIA">
+            <EntityTypeMapping TypeName="ecommerce2024Model.PROVINCIA">
+              <MappingFragment StoreEntitySet="PROVINCIA">
+                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="ecommerce2024Model.Store.fn_ListarComprar" FunctionImportName="fn_ListarComprar">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ecommerce2024Model.fn_ListarComprar_Result">
+                <ScalarProperty Name="RutaImagen" ColumnName="RutaImagen" />
+                <ScalarProperty Name="NombreImagen" ColumnName="NombreImagen" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="IdTransaccion" ColumnName="IdTransaccion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="ecommerce2024Model.Store.fn_ObtenerCarritoCliente" FunctionImportName="fn_ObtenerCarritoCliente">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ecommerce2024Model.fn_ObtenerCarritoCliente_Result">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="DesMarca" ColumnName="DesMarca" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="RutaImagen" ColumnName="RutaImagen" />
+                <ScalarProperty Name="NombreImagen" ColumnName="NombreImagen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ListarMarcaProducto" FunctionName="ecommerce2024Model.Store.ListarMarcaProducto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ecommerce2024Model.ListarMarcaProducto_Result">
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ListarProducto" FunctionName="ecommerce2024Model.Store.ListarProducto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ecommerce2024Model.ListarProducto_Result">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+                <ScalarProperty Name="DesMarca" ColumnName="DesMarca" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="DesCategoria" ColumnName="DesCategoria" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="RutaImagen" ColumnName="RutaImagen" />
+                <ScalarProperty Name="NombreImagen" ColumnName="NombreImagen" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_CantidadCarrito" FunctionName="ecommerce2024Model.Store.sp_CantidadCarrito" />
+          <FunctionImportMapping FunctionImportName="sp_EditarCategoria" FunctionName="ecommerce2024Model.Store.sp_EditarCategoria" />
+          <FunctionImportMapping FunctionImportName="sp_EditarMarca" FunctionName="ecommerce2024Model.Store.sp_EditarMarca" />
+          <FunctionImportMapping FunctionImportName="sp_EditarUsuario" FunctionName="ecommerce2024Model.Store.sp_EditarUsuario" />
+          <FunctionImportMapping FunctionImportName="sp_EliminarCarrito" FunctionName="ecommerce2024Model.Store.sp_EliminarCarrito" />
+          <FunctionImportMapping FunctionImportName="sp_EliminarCategoria" FunctionName="ecommerce2024Model.Store.sp_EliminarCategoria" />
+          <FunctionImportMapping FunctionImportName="sp_EliminarMarca" FunctionName="ecommerce2024Model.Store.sp_EliminarMarca" />
+          <FunctionImportMapping FunctionImportName="sp_EliminarProducto" FunctionName="ecommerce2024Model.Store.sp_EliminarProducto" />
+          <FunctionImportMapping FunctionImportName="sp_ExisteCarrito" FunctionName="ecommerce2024Model.Store.sp_ExisteCarrito" />
+          <FunctionImportMapping FunctionImportName="sp_InsertarVenta" FunctionName="ecommerce2024Model.Store.sp_InsertarVenta" />
+          <FunctionImportMapping FunctionImportName="sp_OperacionCarrito" FunctionName="ecommerce2024Model.Store.sp_OperacionCarrito" />
+          <FunctionImportMapping FunctionImportName="sp_RegistarCliente" FunctionName="ecommerce2024Model.Store.sp_RegistarCliente" />
+          <FunctionImportMapping FunctionImportName="sp_RegistrarCategoria" FunctionName="ecommerce2024Model.Store.sp_RegistrarCategoria" />
+          <FunctionImportMapping FunctionImportName="sp_RegistrarMarca" FunctionName="ecommerce2024Model.Store.sp_RegistrarMarca" />
+          <FunctionImportMapping FunctionImportName="sp_RegistrarProducto" FunctionName="ecommerce2024Model.Store.sp_RegistrarProducto" />
+          <FunctionImportMapping FunctionImportName="sp_RegistrarUsuario" FunctionName="ecommerce2024Model.Store.sp_RegistrarUsuario" />
+          <FunctionImportMapping FunctionImportName="sp_ReporteDashboard" FunctionName="ecommerce2024Model.Store.sp_ReporteDashboard">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ecommerce2024Model.sp_ReporteDashboard_Result">
+                <ScalarProperty Name="TotalCliente" ColumnName="TotalCliente" />
+                <ScalarProperty Name="TotalVenta" ColumnName="TotalVenta" />
+                <ScalarProperty Name="TotalProducto" ColumnName="TotalProducto" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ReporteVentas" FunctionName="ecommerce2024Model.Store.sp_ReporteVentas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ecommerce2024Model.sp_ReporteVentas_Result">
+                <ScalarProperty Name="FechaVenta" ColumnName="FechaVenta" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="Producto" ColumnName="Producto" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="IdTransaccion" ColumnName="IdTransaccion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_EditarProducto" FunctionName="ecommerce2024Model.Store.usp_EditarProducto" />
+          <FunctionImportMapping FunctionImportName="usp_InsertarVenta" FunctionName="ecommerce2024Model.Store.usp_InsertarVenta" />
+          <FunctionImportMapping FunctionImportName="usp_RegistrarVenta" FunctionName="ecommerce2024Model.Store.usp_RegistrarVenta" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

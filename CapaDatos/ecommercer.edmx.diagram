@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="194b90ffa69d491a92afd91cd5841a0b" Name="Diagram1">
+        <EntityTypeShape EntityType="ecommerce2024Model.CARRITO" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerce2024Model.CATEGORIA" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerce2024Model.CLIENTE" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerce2024Model.DETALLE_VENTA" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerce2024Model.MARCA" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerce2024Model.Producto" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerce2024Model.Rol" Width="1.5" PointX="5.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerce2024Model.USUARIO" Width="1.5" PointX="8" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerce2024Model.VENTA" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerce2024Model.DEPARTAMENTO" Width="1.5" PointX="7.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerce2024Model.DISTRITO" Width="1.5" PointX="9.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerce2024Model.PROVINCIA" Width="1.5" PointX="10.75" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="ecommerce2024Model.FK__CARRITO__IdClien__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerce2024Model.FK__CARRITO__IdProdu__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerce2024Model.FK__Producto__IdCate__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerce2024Model.FK__VENTA__IdCliente__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerce2024Model.FK__DETALLE_V__IdPro__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerce2024Model.FK__DETALLE_V__IdVen__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerce2024Model.FK__Producto__IdMarc__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerce2024Model.FK__USUARIO__idRol__628FA481" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
